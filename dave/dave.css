@@ -136,6 +136,14 @@ input[type=file], input[type=text], input[type=url], input[type=email] {
 .photo-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; margin-top: .8rem; }
 .photo-list figure { position: relative; margin: 0; }
 .photo-list img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 8px; display: block; }
+.gallery-h { margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid #eee; }
+.photo-list img.hidden-photo { opacity: .3; }
+.photo-list figure.builtin::after {
+  content: attr(data-state);
+  position: absolute; left: 4px; bottom: 4px;
+  background: rgba(0,0,0,.65); color: #fff;
+  font-size: .7rem; padding: .15rem .45rem; border-radius: 6px;
+}
 .photo-list button {
   position: absolute; top: 4px; right: 4px;
   background: rgba(0,0,0,.6); color: #fff; border: none; border-radius: 50%;

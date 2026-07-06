@@ -2,3 +2,8 @@
 node_modules/
 server/data.json
 server/photos/
+.ds-sync/
+ds-bundle/
+.design-sync/.cache/
+.design-sync/learnings/
+.design-sync/node_modules

@@ -23,6 +23,7 @@ const DEFAULT_STATE = {
   pendingAsk: null, // { at, count }
   vapid: null,
   photos: [], // [{ id, file, caption, addedAt }]
+  hiddenGallery: [], // built-in site gallery photos Dave has hidden (by name)
   socials: { facebook: "https://www.facebook.com/profile.php?id=61591666165309" },
 };
 
@@ -243,6 +244,17 @@ app.delete("/api/photos/:id", requireAuth, (req, res) => {
   state.photos.splice(i, 1);
   save();
   res.json({ ok: true });
+});
+
+// ---------- built-in gallery visibility ----------
+app.get("/api/gallery", (_req, res) => res.json({ hidden: state.hiddenGallery }));
+
+app.put("/api/gallery", requireAuth, (req, res) => {
+  const hidden = req.body?.hidden;
+  if (!Array.isArray(hidden)) return res.status(400).json({ error: "hidden must be an array" });
+  state.hiddenGallery = hidden.map(String).slice(0, 200);
+  save();
+  res.json({ hidden: state.hiddenGallery });
 });
 
 // ---------- socials ----------

@@ -1,0 +1,10 @@
+{
+  "projectId": "0a1fa205-2ffa-439a-bcb8-5f7f5af404ad",
+  "pkg": "@saltytaco/design-system",
+  "globalName": "SaltyTacoDS",
+  "shape": "package",
+  "buildCmd": "npm run build",
+  "cssEntry": "dist/styles.css",
+  "tokensGlob": "dist/tokens.css",
+  "readmeHeader": ".design-sync/conventions.md"
+}

@@ -207,6 +207,51 @@
     } catch (_) {}
   }
 
+  // ---------- built-in gallery hide/show ----------
+  let hiddenGallery = [];
+
+  async function loadBuiltinGallery() {
+    try {
+      const res = await fetch(`${API}/api/gallery`);
+      if (res.ok) hiddenGallery = (await res.json()).hidden || [];
+    } catch (_) {}
+    renderBuiltinGallery();
+  }
+
+  function renderBuiltinGallery() {
+    const list = $("builtin-list");
+    list.innerHTML = "";
+    window.SALTY_GALLERY.forEach(([name, alt]) => {
+      const hidden = hiddenGallery.includes(name);
+      const fig = document.createElement("figure");
+      fig.className = "builtin";
+      fig.dataset.state = hidden ? "Hidden" : "Shown";
+      const img = document.createElement("img");
+      img.src = `../assets/img/${name}.jpg`;
+      img.alt = alt;
+      img.loading = "lazy";
+      if (hidden) img.classList.add("hidden-photo");
+      fig.appendChild(img);
+      fig.addEventListener("click", () => toggleBuiltin(name));
+      list.appendChild(fig);
+    });
+  }
+
+  async function toggleBuiltin(name) {
+    hiddenGallery = hiddenGallery.includes(name)
+      ? hiddenGallery.filter((n) => n !== name)
+      : [...hiddenGallery, name];
+    renderBuiltinGallery();
+    try {
+      await api("/api/gallery", { method: "PUT", body: JSON.stringify({ hidden: hiddenGallery }) });
+      $("gallery-saved").textContent = "Saved ✓";
+      setTimeout(() => ($("gallery-saved").textContent = ""), 2000);
+    } catch (e) {
+      $("gallery-saved").textContent = "Couldn't save — try again.";
+      loadBuiltinGallery();
+    }
+  }
+
   // Downscale on the phone so uploads are quick on island wifi.
   function fileToJpegDataUrl(file, maxDim = 1600) {
     return new Promise((resolve, reject) => {
@@ -380,6 +425,7 @@
     await checkAsk();
     await updatePushUI();
     loadPhotos();
+    loadBuiltinGallery();
     loadSocials();
     setInterval(checkAsk, 20000);
   }
