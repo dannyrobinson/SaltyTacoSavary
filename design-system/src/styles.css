@@ -1,0 +1,160 @@
+@import "./tokens.css";
+
+/* ---------- Button ---------- */
+.st-btn {
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+  font-family: var(--st-font-display);
+  letter-spacing: 0.02em;
+  color: var(--st-white);
+  border-radius: var(--st-radius-pill);
+  transition: transform 0.15s ease;
+  background: var(--st-ocean);
+}
+.st-btn:hover { transform: scale(1.05); }
+.st-btn:disabled { opacity: 0.55; cursor: default; transform: none; }
+.st-btn--md { font-size: 1.2rem; padding: 0.65rem 1.5rem; }
+.st-btn--lg { font-size: 1.5rem; padding: 0.9rem 2.2rem; }
+.st-btn--primary {
+  background: linear-gradient(135deg, var(--st-sunset), var(--st-sunset-deep));
+  box-shadow: var(--st-shadow-pop);
+}
+.st-btn--secondary { background: var(--st-ocean); }
+.st-btn--yes { background: var(--st-green); }
+.st-btn--no { background: var(--st-red); }
+
+/* ---------- OpenBadge ---------- */
+.st-badge {
+  display: inline-block;
+  padding: 0.5rem 1.4rem;
+  border-radius: var(--st-radius-pill);
+  font-family: var(--st-font-body);
+  font-weight: bold;
+  font-size: 1.05rem;
+  background: var(--st-chalk-green);
+  color: #1b3a10;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+.st-badge--closed { background: var(--st-chalk-pink); color: #5a0d2c; }
+
+/* ---------- ExtensionBanner ---------- */
+.st-banner {
+  max-width: 560px;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  background: var(--st-chalk-green);
+  color: #1b3a10;
+  font-family: var(--st-font-body);
+  font-weight: bold;
+  font-size: 1.15rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+/* ---------- SectionHeading ---------- */
+.st-heading {
+  font-family: var(--st-font-display);
+  font-size: clamp(2.2rem, 6vw, 3.2rem);
+  color: var(--st-ocean);
+  text-align: center;
+  margin: 0 0 var(--st-space-lg);
+}
+.st-heading::after {
+  content: "";
+  display: block;
+  width: 90px;
+  height: 5px;
+  margin: 0.5rem auto 0;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--st-sunset), var(--st-wave));
+}
+
+/* ---------- ChalkBoard ---------- */
+.st-board {
+  background: var(--st-chalkboard);
+  color: var(--st-white);
+  border: 10px solid var(--st-wood);
+  border-radius: var(--st-radius-board);
+  padding: 1.6rem 1.4rem;
+  box-shadow: var(--st-shadow-board);
+  font-family: var(--st-font-body);
+}
+.st-board__title {
+  font-family: var(--st-font-display);
+  font-size: 1.9rem;
+  color: var(--st-white);
+  text-align: center;
+  margin: 0 0 var(--st-space-md);
+  text-decoration: underline wavy var(--st-wave) 2px;
+  text-underline-offset: 8px;
+}
+.st-board__flourish {
+  text-align: center;
+  font-family: var(--st-font-display);
+  font-size: 1.8rem;
+  color: var(--st-chalk-pink);
+  transform: rotate(-2deg);
+  margin: var(--st-space-md) 0 0;
+}
+.st-board ul { list-style: none; margin: 0; padding: 0; }
+
+/* ---------- ChalkMenuItem ---------- */
+.st-menu-item { display: flex; align-items: baseline; gap: 0.5rem; padding: 0.3rem 0; }
+.st-menu-item__name { font-weight: bold; font-size: 1.1rem; }
+.st-menu-item__dots { flex: 1; border-bottom: 2px dotted rgba(255, 255, 255, 0.35); }
+.st-menu-item__price { color: var(--st-white); font-weight: bold; white-space: nowrap; }
+.st-menu-item__desc {
+  display: block;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.65);
+  font-style: italic;
+  padding: 0 0 0.5rem 0.5rem;
+}
+.st-chalk--pink { color: var(--st-chalk-pink); }
+.st-chalk--blue { color: var(--st-chalk-blue); }
+.st-chalk--yellow { color: var(--st-chalk-yellow); }
+.st-chalk--green { color: var(--st-chalk-green); }
+.st-chalk--orange { color: var(--st-chalk-orange); }
+
+/* ---------- DayCard / HoursGrid ---------- */
+.st-hours-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.6rem;
+}
+.st-day-card {
+  background: var(--st-chalkboard);
+  color: var(--st-white);
+  border-radius: 10px;
+  padding: 0.8rem 0.4rem;
+  border: 3px solid #5a4632;
+  text-align: center;
+  font-family: var(--st-font-body);
+}
+.st-day-card__day {
+  font-weight: bold;
+  color: var(--st-chalk-yellow);
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+}
+.st-day-card__time { font-size: 1.05rem; color: var(--st-chalk-blue); }
+.st-day-card--today { outline: 3px solid var(--st-sunset); outline-offset: 2px; }
+.st-day-card--closed .st-day-card__time { color: var(--st-chalk-pink); }
+
+/* ---------- Card ---------- */
+.st-card {
+  background: #fff;
+  border-radius: var(--st-radius-card);
+  padding: 1.2rem;
+  box-shadow: var(--st-shadow-card);
+  font-family: var(--st-font-ui);
+  color: var(--st-ink);
+}
+.st-card--highlight { border: 3px solid var(--st-sunset); }
+.st-card__title {
+  font-size: 1.1rem;
+  margin: 0 0 0.6rem;
+  color: var(--st-ocean-deep);
+  font-family: var(--st-font-ui);
+}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Salty Taco — Savary Island, BC</title>
+<meta name="description" content="The Salty Taco food truck on Savary Island, BC. Big tacos, salty snacks, ice cream and slushies. Open 12–5 every day — later if you ask nicely.">
+<link rel="icon" href="assets/logo.jpg">
+<link rel="preload" as="image" href="assets/img/IMG_1570.jpg">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="hero">
+  <img class="hero-photo" src="assets/img/IMG_1570.jpg" alt="The Salty Taco truck — bright blue trailer with chalkboard menus">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1>The Salty Taco</h1>
+    <p class="tagline">Savary Island, BC</p>
+    <p class="sub">All you need is love &amp; tacos</p>
+    <div id="open-badge" class="open-badge" hidden></div>
+  </div>
+</header>
+
+<main>
+  <section id="hours" class="section hours">
+    <h2>Hours</h2>
+    <p class="hours-blurb">We're at the truck <strong>12–5 every day</strong> — and we'll happily stay later if people are hungry.</p>
+    <div id="hours-grid" class="hours-grid"></div>
+    <div id="extension-banner" class="extension-banner" hidden></div>
+    <div id="ask-wrap" class="ask-wrap" hidden>
+      <p>It's past our posted hours, but Dave sometimes sticks around…</p>
+      <button id="ask-btn" class="btn ask-btn">Are you still open?</button>
+      <p id="ask-status" class="ask-status" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section id="menu" class="section menu">
+    <h2>Menu</h2>
+    <div class="menu-boards">
+      <div class="board">
+        <h3>Tacos</h3>
+        <ul>
+          <li><span class="item chalk-orange">Beef Taco</span><span class="dots"></span><span class="price">$25</span></li>
+          <li class="desc">1 × 10" flour tortilla, cheese, fresh lettuce, tomato, avocado, chipotle sauce, sour cream, salsa</li>
+          <li><span class="item chalk-yellow">Chicken Fajita Taco</span><span class="dots"></span><span class="price">$25</span></li>
+          <li class="desc">1 × 10" flour tortilla, fresh fried peppers &amp; onions, cheese, lettuce, tomato, avocado, chipotle sauce, sour cream, salsa</li>
+          <li><span class="item chalk-blue">Fish Tacos</span><span class="dots"></span><span class="price">$18 / 2 for $30</span></li>
+          <li class="desc">2 × 6" corn tortillas, corn-crusted fish, mango salsa, fresh lettuce, avocado crema, chipotle sauce</li>
+          <li><span class="item chalk-green">Veggie Tacos</span><span class="dots"></span><span class="price">$15 / 2 for $25</span></li>
+          <li class="desc">2 × 6" corn tortillas, pan-fried cauliflower, green/red cabbage, avocado crema, chipotle sauce, mango salsa</li>
+        </ul>
+      </div>
+      <div class="board">
+        <h3>Salty Snacks</h3>
+        <ul>
+          <li><span class="item chalk-orange">Chicken Strips &amp; Fries</span><span class="dots"></span><span class="price">$25</span></li>
+          <li><span class="item chalk-blue">Poutine</span><span class="dots"></span><span class="price">$17</span></li>
+          <li><span class="item chalk-yellow">Small Fries</span><span class="dots"></span><span class="price">$10</span></li>
+          <li><span class="item chalk-green">Onion Rings</span><span class="dots"></span><span class="price">$12</span></li>
+        </ul>
+        <h3>Ice Cream &amp; Snacks</h3>
+        <ul>
+          <li><span class="item chalk-pink">Single Cone or Cup</span><span class="dots"></span><span class="price">$6</span></li>
+          <li><span class="item chalk-pink">Double Cone or Cup</span><span class="dots"></span><span class="price">$8</span></li>
+          <li><span class="item chalk-blue">Waffle Cone</span><span class="dots"></span><span class="price">$10</span></li>
+          <li><span class="item chalk-blue">Waffle Cone Double</span><span class="dots"></span><span class="price">$12</span></li>
+          <li><span class="item chalk-yellow">"Salty Taco" Slushy (20oz)</span><span class="dots"></span><span class="price">$10</span></li>
+          <li><span class="item chalk-yellow">Slushy Refill — bring your cup</span><span class="dots"></span><span class="price">$5</span></li>
+        </ul>
+        <p class="delicious">DELICIOUS!!!</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="photos" class="section gallery">
+    <h2>Photos</h2>
+    <div class="grid" id="gallery-grid"></div>
+  </section>
+
+  <section id="find" class="section find">
+    <h2>Find Us</h2>
+    <p>The bright blue truck on <strong>Savary Island, BC</strong> — right <strong>beside the Church</strong>. Follow the smell of fresh tortillas, or the trail of happy people carrying giant tacos to the beach.</p>
+    <p>Say hi on <a href="https://www.facebook.com/profile.php?id=61591666165309" target="_blank" rel="noopener">Facebook</a>.</p>
+  </section>
+</main>
+
+<footer>
+  <img src="assets/logo.jpg" alt="" class="footer-logo">
+  <nav id="socials" class="socials">
+    <a href="https://www.facebook.com/profile.php?id=61591666165309" target="_blank" rel="noopener">Facebook</a>
+  </nav>
+  <p class="footer-tagline">Keep the sand out of your taco!</p>
+  <p>© <span id="year"></span> The Salty Taco · Savary Island, BC</p>
+</footer>
+
+<div id="lightbox" class="lightbox" hidden><img alt=""><button aria-label="Close">×</button></div>
+
+<script src="js/config.js"></script>
+<script src="js/hours.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

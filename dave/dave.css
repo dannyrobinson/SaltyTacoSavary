@@ -1,0 +1,148 @@
+:root {
+  --ocean: #1656a7;
+  --ocean-deep: #0d3d7a;
+  --sunset: #f4842c;
+  --green: #43a047;
+  --red: #e5533d;
+  --sand: #f7f1e3;
+  --ink: #22252a;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--sand);
+  color: var(--ink);
+  padding-bottom: 3rem;
+}
+header {
+  background: var(--ocean);
+  color: #fff;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+}
+.mini-logo { width: 42px; height: 42px; border-radius: 50%; }
+h1 { font-size: 1.3rem; flex: 1; }
+.push-btn {
+  border: 2px solid rgba(255,255,255,.7);
+  background: rgba(255,255,255,.12);
+  color: #fff;
+  font-size: .85rem;
+  font-weight: 600;
+  padding: .4rem .8rem;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.push-btn:disabled { opacity: .7; cursor: default; }
+.topbar-status {
+  background: var(--ocean-deep);
+  color: #ffd54f;
+  font-size: .85rem;
+  padding: .45rem .9rem;
+  text-align: center;
+  max-width: none;
+}
+
+.install-hint {
+  position: relative;
+  max-width: 560px;
+  margin: 1rem auto 0;
+  background: #fff8e6;
+  border: 2px solid var(--sunset);
+  border-radius: 12px;
+  padding: .9rem 2.2rem .9rem 1rem;
+  font-size: .95rem;
+}
+.install-hint .btn { display: block; margin-top: .6rem; }
+.ios-share { color: var(--ocean); font-weight: bold; }
+.install-dismiss {
+  position: absolute; top: .3rem; right: .5rem;
+  background: none; border: none; font-size: 1.3rem; color: #999; cursor: pointer;
+}
+main, section { max-width: 560px; margin: 0 auto; padding: 0 .8rem; }
+.card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 1.2rem;
+  margin-top: 1rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,.08);
+}
+.card h2 { font-size: 1.1rem; margin-bottom: .6rem; color: var(--ocean-deep); }
+.muted { color: #777; font-size: .9rem; margin-bottom: .6rem; }
+.error { color: var(--red); margin-top: .5rem; }
+
+input[type=password], input[type=time], input[type=date] {
+  padding: .55rem .7rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin: .25rem 0;
+}
+input[type=password] { width: 100%; }
+
+.btn {
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+  background: var(--ocean);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: .65rem 1.3rem;
+  border-radius: 999px;
+  margin-top: .5rem;
+}
+.btn.yes { background: var(--green); }
+.btn.no { background: var(--red); }
+.btn:disabled { opacity: .5; }
+
+.ask-card { border: 3px solid var(--sunset); }
+.big-q { font-size: 1.5rem; font-weight: 700; margin: .3rem 0; }
+.yn { display: flex; gap: .8rem; }
+.yn .btn { flex: 1; font-size: 1.2rem; padding: .9rem; }
+#until-row { margin-top: 1rem; display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; }
+
+.day-row {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .35rem 0;
+  border-bottom: 1px solid #eee;
+  flex-wrap: wrap;
+}
+.day-row .dname { width: 3.2rem; font-weight: 600; }
+.chk { display: inline-flex; align-items: center; gap: .35rem; font-size: .9rem; }
+
+.override-new { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+#ov-list { list-style: none; margin-top: 1rem; }
+#ov-list li {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .45rem 0; border-bottom: 1px solid #eee;
+}
+#ov-list button { background: none; border: none; color: var(--red); cursor: pointer; font-size: .9rem; }
+
+input[type=file], input[type=text], input[type=url], input[type=email] {
+  padding: .55rem .7rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin: .25rem 0;
+  width: 100%;
+}
+.card label { display: block; font-size: .9rem; color: #555; margin-top: .4rem; }
+.ig-import { margin-top: .8rem; padding-top: .8rem; border-top: 1px solid #eee; }
+.photo-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; margin-top: .8rem; }
+.photo-list figure { position: relative; margin: 0; }
+.photo-list img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 8px; display: block; }
+.photo-list button {
+  position: absolute; top: 4px; right: 4px;
+  background: rgba(0,0,0,.6); color: #fff; border: none; border-radius: 50%;
+  width: 26px; height: 26px; cursor: pointer; font-size: .9rem; line-height: 1;
+}
+
+.linkish {
+  background: none; border: none; color: var(--ocean);
+  text-decoration: underline; cursor: pointer; margin: 1.5rem auto 0; display: block;
+}

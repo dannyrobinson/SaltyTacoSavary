@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Salty Taco — Dave's App</title>
+<meta name="theme-color" content="#1656a7">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="dave.css">
+</head>
+<body>
+
+<header>
+  <img src="icons/icon-192.png" alt="" class="mini-logo">
+  <h1>Dave's Taco Control</h1>
+  <button id="push-btn" class="push-btn" hidden>🔔 Enable push</button>
+</header>
+<p id="topbar-status" class="topbar-status" aria-live="polite" hidden></p>
+
+<!-- PWA install hint -->
+<div id="install-hint" class="install-hint" hidden>
+  <div id="install-ios" hidden>
+    📲 <strong>Put this app on your Home Screen</strong> — tap Safari's <strong>Share</strong> button
+    <span class="ios-share">(the square with the up arrow)</span>, then <strong>"Add to Home Screen"</strong>.
+    (iPhones only allow push notifications for installed apps.)
+  </div>
+  <div id="install-android-wrap" hidden>
+    📲 <strong>Install this app</strong> so it's one tap away and can ping you.
+    <button id="install-android" class="btn">Install app</button>
+  </div>
+  <button id="install-dismiss" class="install-dismiss" aria-label="Dismiss">×</button>
+</div>
+
+<!-- login -->
+<section id="login-view" hidden>
+  <div class="card">
+    <h2>Log in</h2>
+    <p>Enter your password to manage The Salty Taco.</p>
+    <input type="password" id="password" placeholder="Password" autocomplete="current-password">
+    <button id="login-btn" class="btn">Log in</button>
+    <p id="login-error" class="error" aria-live="polite"></p>
+  </div>
+</section>
+
+<!-- config missing -->
+<section id="noapi-view" hidden>
+  <div class="card">
+    <h2>Backend not configured</h2>
+    <p>Set <code>API_BASE</code> in <code>js/config.js</code> to your deployed server URL (see <code>server/README.md</code>).</p>
+  </div>
+</section>
+
+<main id="app-view" hidden>
+
+  <!-- pending "are you still open?" question -->
+  <div class="card ask-card" id="ask-card" hidden>
+    <h2>🌮 Someone's asking:</h2>
+    <p class="big-q">"Are you still open?"</p>
+    <p id="ask-meta" class="muted"></p>
+    <div class="yn">
+      <button class="btn yes" id="yes-btn">Yes</button>
+      <button class="btn no" id="no-btn">No</button>
+    </div>
+    <div id="until-row" hidden>
+      <label for="until-time">Staying open until:</label>
+      <input type="time" id="until-time">
+      <button class="btn yes" id="confirm-until">Confirm</button>
+    </div>
+  </div>
+
+  <!-- current extension -->
+  <div class="card" id="ext-card" hidden>
+    <h2>Extended hours</h2>
+    <p id="ext-text"></p>
+    <button class="btn no" id="ext-clear">I'm closing now</button>
+  </div>
+
+  <!-- weekly hours -->
+  <div class="card">
+    <h2>Weekly hours</h2>
+    <div id="weekly-rows"></div>
+    <button class="btn" id="save-weekly">Save weekly hours</button>
+    <p id="weekly-saved" class="muted" aria-live="polite"></p>
+  </div>
+
+  <!-- specific-day overrides -->
+  <div class="card">
+    <h2>Specific days</h2>
+    <p class="muted">Override hours (or close entirely) for a specific date — long weekend, off-island day, whatever.</p>
+    <div class="override-new">
+      <input type="date" id="ov-date">
+      <label class="chk"><input type="checkbox" id="ov-closed"> Closed all day</label>
+      <span id="ov-times">
+        <input type="time" id="ov-open" value="12:00">
+        <span>to</span>
+        <input type="time" id="ov-close" value="17:00">
+      </span>
+      <button class="btn" id="ov-add">Save day</button>
+    </div>
+    <ul id="ov-list"></ul>
+  </div>
+
+  <!-- photos -->
+  <div class="card">
+    <h2>Photos</h2>
+    <p class="muted">Pictures you add here show up in the website gallery.</p>
+    <input type="file" id="photo-file" accept="image/*" multiple>
+    <input type="text" id="photo-caption" placeholder="Caption (optional)" maxlength="200">
+    <button class="btn" id="photo-upload">Upload</button>
+    <div class="ig-import">
+      <input type="url" id="ig-url" placeholder="Instagram post URL to import">
+      <button class="btn" id="ig-import">Import from Instagram</button>
+    </div>
+    <p id="photo-status" class="muted" aria-live="polite"></p>
+    <div id="photo-list" class="photo-list"></div>
+  </div>
+
+  <!-- socials -->
+  <div class="card">
+    <h2>Social links</h2>
+    <label>Instagram <input type="url" id="soc-instagram" placeholder="https://instagram.com/thesaltytaco"></label>
+    <label>Facebook <input type="url" id="soc-facebook" placeholder="https://facebook.com/…"></label>
+    <label>TikTok <input type="url" id="soc-tiktok" placeholder="https://tiktok.com/@…"></label>
+    <label>Email <input type="email" id="soc-email" placeholder="dave@…"></label>
+    <button class="btn" id="soc-save">Save socials</button>
+    <p id="soc-saved" class="muted" aria-live="polite"></p>
+  </div>
+
+  <button id="logout" class="linkish">Log out</button>
+</main>
+
+<script src="../js/config.js"></script>
+<script src="../js/hours.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
