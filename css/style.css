@@ -79,6 +79,7 @@ h1, h2, h3, .btn {
   box-shadow: 0 4px 16px rgba(0,0,0,.3);
 }
 .open-badge.closed { background: var(--chalk-pink); color: #5a0d2c; }
+.open-badge[hidden] { display: none; }
 .hero-location {
   margin-top: .9rem;
   font-size: 1.15rem;
@@ -138,7 +139,9 @@ h1, h2, h3, .btn {
   box-shadow: 0 4px 14px rgba(0,0,0,.15);
 }
 
-.ask-wrap { margin-top: 2rem; }
+#ask-wrap { margin-top: 1.2rem; }
+#ask-wrap .ask-btn { font-size: 1.25rem; max-width: 34rem; }
+#ask-wrap .ask-status { color: var(--white); text-shadow: 1px 1px 3px rgba(0,0,0,.5); }
 .btn {
   display: inline-block;
   border: none;

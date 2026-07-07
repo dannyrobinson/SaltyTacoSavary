@@ -100,7 +100,9 @@
   function renderStatus() {
     const st = statusNow(hoursData);
     const badge = document.getElementById("open-badge");
-    badge.hidden = false;
+    // Closed + backend available → the badge's place is taken by the
+    // "are we still serving?" button instead of a dead "Closed" pill.
+    badge.hidden = !st.open && !!API;
     badge.classList.toggle("closed", !st.open);
     badge.textContent = st.open ? `Open now — until ${st.until}` : "Closed right now";
 
