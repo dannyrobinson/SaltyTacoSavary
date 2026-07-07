@@ -1,0 +1,24 @@
+# One-click deploy: Render dashboard → New → Blueprint → pick this repo.
+#
+# NOTE: the free plan has no persistent disk, so hours edits, push
+# subscriptions, and uploaded photos reset whenever Render redeploys or
+# restarts the service (posted hours fall back to 12–5 daily — the site
+# never breaks, Dave just re-enables push / re-uploads). For durable
+# storage, switch plan to "starter" and uncomment the disk block + DATA_FILE.
+services:
+  - type: web
+    name: saltytaco-api
+    runtime: node
+    plan: free
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: DAVE_PASSWORD
+        sync: false # prompted at deploy time — set Dave's login password
+      # - key: DATA_FILE
+      #   value: /data/data.json
+    # disk:
+    #   name: saltytaco-data
+    #   mountPath: /data
+    #   sizeGB: 1
