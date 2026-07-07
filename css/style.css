@@ -141,7 +141,8 @@ h1, h2, h3, .btn {
 }
 
 #ask-wrap { margin-top: 1.2rem; }
-#ask-wrap .ask-btn { font-size: 1.25rem; max-width: 34rem; }
+#ask-wrap .ask-btn { font-size: 1.25rem; max-width: 34rem; line-height: 1.35; }
+.ask-btn-sub { font-size: .95rem; font-weight: 600; opacity: .95; }
 #ask-wrap .ask-status { color: var(--white); text-shadow: 1px 1px 3px rgba(0,0,0,.5); }
 .btn {
   display: inline-block;
