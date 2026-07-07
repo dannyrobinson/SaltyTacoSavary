@@ -2,5 +2,5 @@
 // Leave empty to run in "static mode": posted hours only, no live
 // "are you still open" button and no extended-hours banner.
 window.SALTY_CONFIG = {
-  API_BASE: "", // e.g. "https://saltytaco-api.onrender.com"
+  API_BASE: "https://saltytaco-api.onrender.com", // e.g. "https://saltytaco-api.onrender.com"
 };
