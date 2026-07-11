@@ -83,6 +83,30 @@
     <p>The bright blue truck on <strong>Savary Island, BC</strong> — right <strong>beside the Church</strong>. Follow the smell of fresh tortillas, or the trail of happy people carrying giant tacos to the beach.</p>
     <p>Say hi on <a href="https://www.facebook.com/profile.php?id=61591666165309" target="_blank" rel="noopener">Facebook</a>.</p>
   </section>
+
+  <section id="reviews" class="section reviews">
+    <h2>Reviews</h2>
+    <div id="review-list" class="review-list">
+      <p id="reviews-empty" class="reviews-empty" hidden>No reviews yet — be the first to tell us how the tacos were!</p>
+    </div>
+    <div id="review-form-wrap" class="review-form" hidden>
+      <h3>Leave a review</h3>
+      <label for="rev-name">Your name</label>
+      <input type="text" id="rev-name" maxlength="60" placeholder="e.g. Sandy from the beach" autocomplete="name">
+      <label id="rev-stars-label">Your rating</label>
+      <div class="star-picker" id="rev-stars" role="radiogroup" aria-labelledby="rev-stars-label">
+        <button type="button" data-star="1" aria-label="1 star">★</button>
+        <button type="button" data-star="2" aria-label="2 stars">★</button>
+        <button type="button" data-star="3" aria-label="3 stars">★</button>
+        <button type="button" data-star="4" aria-label="4 stars">★</button>
+        <button type="button" data-star="5" aria-label="5 stars">★</button>
+      </div>
+      <label for="rev-text">Your review</label>
+      <textarea id="rev-text" rows="4" maxlength="1500" placeholder="How were the tacos?"></textarea>
+      <button id="rev-submit" class="btn">Send review</button>
+      <p id="rev-status" class="rev-status" aria-live="polite"></p>
+    </div>
+  </section>
 </main>
 
 <footer>

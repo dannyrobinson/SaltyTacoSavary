@@ -23,6 +23,7 @@ const DEFAULT_STATE = {
   pendingAsk: null, // { at, count }
   vapid: null,
   photos: [], // [{ id, file, caption, addedAt }]
+  reviews: [], // [{ id, name, rating, text, at, approved }]
   hiddenGallery: [], // built-in site gallery photos Dave has hidden (by name)
   socials: { facebook: "https://www.facebook.com/profile.php?id=61591666165309" },
 };
@@ -255,6 +256,67 @@ app.put("/api/gallery", requireAuth, (req, res) => {
   state.hiddenGallery = hidden.map(String).slice(0, 200);
   save();
   res.json({ hidden: state.hiddenGallery });
+});
+
+// ---------- reviews (moderated — only what Dave approves goes public) ----------
+app.get("/api/reviews", (_req, res) => {
+  res.json(state.reviews
+    .filter((r) => r.approved)
+    .map(({ id, name, rating, text, at }) => ({ id, name, rating, text, at })));
+});
+
+app.post("/api/reviews", async (req, res) => {
+  const name = String(req.body?.name || "").trim().slice(0, 60);
+  const rating = Number(req.body?.rating);
+  const text = String(req.body?.text || "").trim().slice(0, 1500);
+  if (!name || !text || !Number.isInteger(rating) || rating < 1 || rating > 5) {
+    return res.status(400).json({ error: "need a name, a 1–5 star rating and some words" });
+  }
+  const review = { id: crypto.randomBytes(8).toString("hex"), name, rating, text, at: Date.now(), approved: false };
+  state.reviews.unshift(review);
+  state.reviews = state.reviews.slice(0, 500);
+  save();
+
+  // Ping Dave so he can approve (or bin) it.
+  if (state.subscriptions.length) {
+    const payload = JSON.stringify({
+      title: "⭐ New review to approve",
+      body: `${name} left ${rating} star${rating === 1 ? "" : "s"}: “${text.slice(0, 120)}${text.length > 120 ? "…" : ""}”`,
+      tag: "new-review",
+      url: "./index.html?review=1",
+    });
+    const dead = [];
+    await Promise.all(state.subscriptions.map((sub) =>
+      webpush.sendNotification(sub, payload).catch((err) => {
+        if (err.statusCode === 404 || err.statusCode === 410) dead.push(sub.endpoint);
+      })
+    ));
+    if (dead.length) {
+      state.subscriptions = state.subscriptions.filter((s) => !dead.includes(s.endpoint));
+      save();
+    }
+  }
+  res.json({ ok: true });
+});
+
+app.get("/api/reviews/pending", requireAuth, (_req, res) => {
+  res.json(state.reviews.filter((r) => !r.approved));
+});
+
+app.post("/api/reviews/:id/approve", requireAuth, (req, res) => {
+  const r = state.reviews.find((x) => x.id === req.params.id);
+  if (!r) return res.status(404).json({ error: "not found" });
+  r.approved = true;
+  save();
+  res.json({ ok: true });
+});
+
+app.delete("/api/reviews/:id", requireAuth, (req, res) => {
+  const i = state.reviews.findIndex((x) => x.id === req.params.id);
+  if (i === -1) return res.status(404).json({ error: "not found" });
+  state.reviews.splice(i, 1);
+  save();
+  res.json({ ok: true });
 });
 
 // ---------- socials ----------

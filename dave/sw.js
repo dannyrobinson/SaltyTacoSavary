@@ -10,9 +10,9 @@ self.addEventListener("push", (event) => {
       body: data.body || "A customer is asking if the truck is still open. Tap to answer.",
       icon: "icons/icon-192.png",
       badge: "icons/icon-192.png",
-      tag: "still-open",
+      tag: data.tag || "still-open",
       renotify: true,
-      data: { url: "./index.html?ask=1" },
+      data: { url: data.url || "./index.html?ask=1" },
     })
   );
 });

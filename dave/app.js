@@ -181,6 +181,48 @@
     await checkAsk();
   });
 
+  // ---------- reviews awaiting approval ----------
+  async function loadPendingReviews() {
+    let pending = [];
+    try { pending = await api("/api/reviews/pending"); } catch (_) {}
+    const card = $("review-card");
+    const list = $("review-pending");
+    card.hidden = !pending.length;
+    list.innerHTML = "";
+    pending.forEach((r) => {
+      const li = document.createElement("li");
+      li.className = "pending-review";
+      const stars = document.createElement("div");
+      stars.className = "rev-stars";
+      stars.textContent = "★".repeat(r.rating) + "☆".repeat(5 - r.rating);
+      const meta = document.createElement("p");
+      meta.className = "muted";
+      meta.textContent = `${r.name} — ${new Date(r.at).toLocaleString([], { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}`;
+      const text = document.createElement("blockquote");
+      text.textContent = r.text;
+      const row = document.createElement("div");
+      row.className = "yn";
+      const ok = document.createElement("button");
+      ok.className = "btn yes";
+      ok.textContent = "Approve";
+      ok.addEventListener("click", async () => {
+        await api(`/api/reviews/${r.id}/approve`, { method: "POST" });
+        loadPendingReviews();
+      });
+      const no = document.createElement("button");
+      no.className = "btn no";
+      no.textContent = "Delete";
+      no.addEventListener("click", async () => {
+        if (!confirm(`Delete ${r.name}'s review for good?`)) return;
+        await api(`/api/reviews/${r.id}`, { method: "DELETE" });
+        loadPendingReviews();
+      });
+      row.append(ok, no);
+      li.append(stars, meta, text, row);
+      list.appendChild(li);
+    });
+  }
+
   // ---------- photos ----------
   async function loadPhotos() {
     const list = $("photo-list");
@@ -424,10 +466,12 @@
     await loadHours();
     await checkAsk();
     await updatePushUI();
+    loadPendingReviews();
     loadPhotos();
     loadBuiltinGallery();
     loadSocials();
     setInterval(checkAsk, 20000);
+    setInterval(loadPendingReviews, 60000);
   }
 
   if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");

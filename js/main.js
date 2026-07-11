@@ -157,7 +157,87 @@
     }
   });
 
+  // ---------- reviews ----------
+  const starRow = document.getElementById("rev-stars");
+  let chosenStars = 0;
+
+  function paintStars() {
+    starRow.querySelectorAll("button").forEach((b) => {
+      const on = Number(b.dataset.star) <= chosenStars;
+      b.classList.toggle("on", on);
+      b.setAttribute("aria-pressed", on && Number(b.dataset.star) === chosenStars ? "true" : "false");
+    });
+  }
+
+  starRow.addEventListener("click", (e) => {
+    const star = Number(e.target.dataset?.star);
+    if (star) { chosenStars = star; paintStars(); }
+  });
+
+  function starString(n) {
+    return "★".repeat(n) + "☆".repeat(5 - n);
+  }
+
+  async function loadReviews() {
+    if (!API) return; // static mode: keep the whole section hidden below
+    document.getElementById("review-form-wrap").hidden = false;
+    try {
+      const res = await fetch(`${API}/api/reviews`);
+      if (!res.ok) return;
+      const reviews = await res.json();
+      const list = document.getElementById("review-list");
+      list.querySelectorAll(".review").forEach((el) => el.remove());
+      document.getElementById("reviews-empty").hidden = reviews.length > 0;
+      reviews.forEach((r) => {
+        const card = document.createElement("figure");
+        card.className = "review";
+        const stars = document.createElement("div");
+        stars.className = "review-stars";
+        stars.textContent = starString(r.rating);
+        stars.setAttribute("aria-label", `${r.rating} out of 5 stars`);
+        const quote = document.createElement("blockquote");
+        quote.textContent = r.text;
+        const who = document.createElement("figcaption");
+        who.textContent = `— ${r.name}`;
+        card.append(stars, quote, who);
+        list.appendChild(card);
+      });
+    } catch (_) {}
+  }
+
+  document.getElementById("rev-submit")?.addEventListener("click", async () => {
+    const status = document.getElementById("rev-status");
+    const name = document.getElementById("rev-name").value.trim();
+    const text = document.getElementById("rev-text").value.trim();
+    if (!name) return (status.textContent = "Tell us your name first!");
+    if (!chosenStars) return (status.textContent = "Pick a star rating (tap the stars).");
+    if (!text) return (status.textContent = "Write a few words about your visit.");
+    const btn = document.getElementById("rev-submit");
+    btn.disabled = true;
+    status.textContent = "Sending…";
+    try {
+      const res = await fetch(`${API}/api/reviews`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, rating: chosenStars, text }),
+      });
+      if (!res.ok) throw new Error();
+      status.textContent = "Thanks! Your review is on its way to Dave — it'll show up here once he approves it. 🌮";
+      document.getElementById("rev-name").value = "";
+      document.getElementById("rev-text").value = "";
+      chosenStars = 0;
+      paintStars();
+    } catch (_) {
+      status.textContent = "Couldn't send your review right now — please try again later.";
+    }
+    btn.disabled = false;
+  });
+
+  // No backend → no way to collect or store reviews, hide the section.
+  if (!API) document.getElementById("reviews").hidden = true;
+
   refresh();
+  loadReviews();
   applyHiddenGallery();
   loadLivePhotos();
   loadSocials();

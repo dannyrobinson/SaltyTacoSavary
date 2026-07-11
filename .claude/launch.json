@@ -1,6 +1,14 @@
 {
   "version": "0.0.1",
   "configurations": [
-    { "name": "site", "runtimeExecutable": "python3", "runtimeArgs": ["-m", "http.server", "4173"], "port": 4173 }
+    { "name": "site", "runtimeExecutable": "python3", "runtimeArgs": ["-m", "http.server", "4173"], "port": 4173 },
+    {
+      "name": "api",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["server/server.js"],
+      "port": 3210,
+      "autoPort": false,
+      "env": { "PORT": "3210", "DATA_FILE": "/tmp/saltytaco-dev-data.json" }
+    }
   ]
 }
